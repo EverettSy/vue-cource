@@ -1,6 +1,10 @@
 import Home from '@/views/Home.vue'
-export default [{
+export default [
+  {
     path: '/',
+    //设置别名
+    alias: '/home_page',
+    name: 'home',
     component: Home
   },
   {
@@ -13,6 +17,35 @@ export default [{
   },
   {
     path: '/argu/:name',
-    component: () => import('@/views/argu.vue') 
+    name: 'argu',
+    component: () => import('@/views/argu.vue')
+  },
+  {
+    path: "/parent",
+    name: 'parent',
+    component: () => import('@/views/parent.vue'),
+    children: [
+      {
+      path: 'child',
+      component: () => import('@/views/child.vue')
+      }
+    ]
+  },
+  {
+    path: '/named_view',
+    components: {
+      default: () => import('@/views/child.vue'),
+      email: () => import('@/views/email.vue'),
+      tel: () => import('@/views/tel.vue')
+    }
+  },
+  {
+    path: '/main',
+    redirect: to => '/'
+    // {
+    //   // console.log(to)
+    //   //命名路由，重定向到home页面
+    //   // name: 'home' 
+    // }
   }
 ]
